@@ -1,0 +1,13 @@
+##Task-2(Shopping Cart)
+shopping_cart={
+    "fruits":["apple","banana","pear"],
+    "vegetables":["potato","tomato","gourd"],
+    "dairy":["paneer","curd","butter"],
+    "Non-Veg":["chicken","fish","eggs"]
+}
+for category,items in shopping_cart.items():
+    print(f"{category.capitalize()}:{', '.join(items)}")
+shopping_cart["fruits"].append("orange")
+print("\n Updated shopping cart:")
+for category,items in shopping_cart.items():
+    print(f"{category.capitalize()}:{', '.join(items)}")
