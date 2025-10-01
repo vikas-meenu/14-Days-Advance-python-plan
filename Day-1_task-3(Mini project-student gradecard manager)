@@ -1,0 +1,45 @@
+###Task-3(mini project-student gradebook manager)
+gradebook={}
+def add_student():
+    name=input("Enter the name of student: ")
+    subjects={}
+    while True:
+        subject=input("Enter the subjects(or 'done' to stop): ")
+        if subject=='done':
+            break
+        mark=int(input(f"Enter the marks of {subject}: "))
+        subjects[subject]=mark
+        gradebook[name]=subjects
+        print(f"{name} added successfully!\n")
+def view_student():
+    if not gradebook:
+        print("No Student in gradebook")
+        return
+    for student,subjects in gradebook.items():
+        print(f"{student}:{subjects}")
+        print()
+def calculate_avg():
+    name=input("Enter the name of student: ")
+    if name not in gradebook:
+        print("Student not in gradebook")
+        return
+    subjects= gradebook[name]
+    avg=sum(subjects.values())/len(subjects)
+    print(f"{name}'s average score: {avg}")
+while True:
+    print("\n--Student gradebook--")
+    print("1.Add student")
+    print("2.View student")
+    print("3.Calculate average")
+    print("Exit")
+    choice=input("Enter your choice: ")
+    if choice=='1':
+        add_student()
+    elif choice=='2':
+        view_student()
+    elif choice=='3':
+        calculate_avg()
+    elif choice=='4':
+        print("Exiting the student gradebook")
+    else:
+        print("❌Invalid choice! Please try Again!")
