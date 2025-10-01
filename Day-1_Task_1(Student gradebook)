@@ -1,0 +1,10 @@
+###Task-1(Student Gradebook)
+gradebook={
+    "Gaurav":{"Match":90,"Science":97},
+    "Santosh":{"Match":95,"Science":92},
+    "Ujjwal":{"Math":89,"science":91},
+    "Vikas":{"Math":98,"science":96}
+}
+for student,subjects in gradebook.items():
+    avg=sum(subjects.values())/len(subjects)
+    print(f"{student}'s average score: {avg}")
