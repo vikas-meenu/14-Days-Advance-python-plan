@@ -9,3 +9,9 @@ By the end , I will have **14 days projects** in python.
 -[X] Students Gradebook
 -[X] Shopping cart
 -[X] Mini project-student Gradebook Manager
+###✔ Day 1 -Task
+-[X] Function using arg
+-[X] Function using kwarg
+-[X] Exception handling
+-[X] Mini project-Calculator
+
