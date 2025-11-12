@@ -1,0 +1,8 @@
+ ###Task-1(Using args)
+def sum_numbers(args):
+    total=0
+    for num in args:
+        total += num
+    return total
+print(sum_numbers([1,2,3,4,5,6]))
+print(sum_numbers([21,25,78,24]))
