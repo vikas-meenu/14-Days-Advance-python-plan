@@ -1,0 +1,25 @@
+## Task-4(Mini project-Calculator with exception handling)
+def calculator():
+    try:
+        num1=float(input("Enter first number: "))
+        num2= float(input("Enter second number: "))
+        op=input("Enter operation: ")
+        if op=="+":
+            result=num1+num2
+        elif op=="-":
+            result=num1-num2
+        elif op=="*":
+            rsult=num1*num2
+        elif op=="/":
+            result=num1/num2
+        else:
+            print("Invalid operator! Try again.")
+            return
+        print(f"Result: {result}")
+    except ValueError:
+        print("Invalid input! Try again.")
+    except ZeroDivisionError:
+        print("Error! Cannot be divided by zero!")
+    except Exception as e:
+        print("Unexpected error!",e)
+calculator()
