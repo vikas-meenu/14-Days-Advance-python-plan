@@ -1,0 +1,6 @@
+###Task-2(using Kwargs)
+def print_details(**kwargs):
+    for key,value in kwargs.items():
+        print(f"{key}:{value}")
+print_details(name="Vikas",age="29",city="Jaipur")
+print_details(name="Ananya", age="22",city="Delhi")
