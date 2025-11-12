@@ -1,0 +1,14 @@
+### Task-4(Mini Project Frequency of words counter)
+def frequency_words(text):
+    words=text.lower().split()
+    freq={}
+    for word in words:
+        if word in freq:
+            freq[word]+=1
+        else:
+            freq[word]=1
+    print("Frequency of words")
+    for word,count in freq.items():
+        print(f"{word}: {count}")
+paragraph=input("Enter a paragraph: ")
+print(frequency_words(paragraph))
