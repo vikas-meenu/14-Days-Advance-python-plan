@@ -1,0 +1,5 @@
+## Task-1(String Formater)
+def formate_name(name):
+    formatted=name.title()
+    return formatted
+print(formate_name("vIkAs kuMaR"))
