@@ -1,0 +1,6 @@
+### Task-2(Read from files)
+with open("notes.txt","r") as file:
+    lines=file.readlines()
+print("\nYour Notes")
+for i,lines in enumerate(lines,start=1):
+    print(f"{i}.{lines.strip()}")
