@@ -1,0 +1,10 @@
+##Task-1(Write to a file)
+import json
+with open("notes.txt","w") as file:
+    print("Enter your notes (Type 'exit' to stop): ")
+    while True:
+        lines=input("<")
+        if lines.lower()=="exit":
+            break
+        file.write(lines+"\n")
+print("Notes successfully saved to file notes.txt")
