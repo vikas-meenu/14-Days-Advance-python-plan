@@ -1,0 +1,43 @@
+#### Task-4 (Mini project-Contact book)
+import json
+import os
+def load_contacts():
+    print("loading from",os.getcwd())
+    try:
+        with open("contacts.json","r") as file:
+            return json.load(file)
+    except (FileNotFoundError,json.JSONDecodeError):
+        return {}
+def save_contacts(contacts):
+    print("saving contacts to",os.getcwd())
+    with open("contacts.json","w") as file:
+        json.dump(contacts,file,indent=4)
+def add_contact():
+    name=input("Enter name: ")
+    phone=input("Enter phone: ")
+    email=input("Enter email: ")
+    contacts=load_contacts()
+    contacts[name]={"phone": phone, "email": email}
+    save_contacts(contacts)
+    print("contacts saved")
+def view_contacts():
+    contacts=load_contacts()
+    if not contacts:
+        print("No contacts added yet")
+        return
+    for name,info in contacts.items():
+        print(f"{name}: {info['phone']},({info['email']})")
+while True:
+    print("\n Contact Book")
+    print("1. Add Contact")
+    print("2. View Contacts")
+    print("3. Exit")
+    choice=input("Enter your choice: ")
+    if choice=="1":
+        add_contact()
+    elif choice=="2":
+        view_contacts()
+    elif choice=="3":
+        print("Exiting")
+    else:
+        print("Invalid choice")
