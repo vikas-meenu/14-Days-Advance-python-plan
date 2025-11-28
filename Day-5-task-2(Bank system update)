@@ -1,0 +1,45 @@
+### Task-2 Bank system upgrade
+from datetime import datetime
+class BankAccount:
+    def __init__(self,name,balance=0):
+        self.name=name
+        self.balance=balance
+    def record(self,action,amount):
+        with open("transaction.txt","a") as file:
+            file.write(f"{self.name}  {action} {amount}--->Balance {self.balance} {datetime.now()}\n")
+    def deposit(self,amount):
+        self.balance+=amount
+        self.record("deposited",amount)
+        print(f"{amount} deposited and current balance is {self.balance}")
+    def withdraw(self,amount):
+        if amount>self.balance:
+            print("❌Insufficient balance!")
+            return
+        self.balance-=amount
+        self.record("withdrew",amount)
+        print(f"{amount} withdrew and current balance is {self.balance}")
+    def check_balance(self):
+        print(f"Current balance is {self.balance}")
+    def change_pin(self):
+        New_Pin=input("Enter the new PIN number: ")
+        with open("New_store.txt","w") as file:
+            file.write(New_Pin)
+            print("New PIN set successfully✔")
+acc=BankAccount("Vikas",10000)
+while True:
+    print("\n 1. Deposit\n 2. withdraw\n 3. Check balance\n 4. Change PIN\n 5. Exit")
+    choice = input("Enter your choice: ")
+    if choice == "1":
+        acc.deposit(int(input("Enter the amount to deposit: ")))
+    elif choice=="2":
+        acc.withdraw(int(input("Enter the amount to withdraw: ")))
+    elif choice=="3":
+        acc.check_balance()
+    elif choice=="4":
+        acc.change_pin()
+    elif choice=="5":
+        break
+    else:
+        print("Invalid choice try again! ")
+
+
