@@ -1,0 +1,80 @@
+import csv
+from datetime import date
+import os
+FILE="attendance.csv"
+def create_file():
+    if not os.path.exists(FILE):
+        with open (FILE,"w",newline="") as f:
+            writer=csv.writer(f)
+            writer.writerow(["name","date","status"])
+create_file()
+def mark_attendance():
+    name=input("Enter employee's name: ")
+    status=input("Present/Absent: ").capitalize()
+    today=str(date.today())
+    with open(FILE,"r") as f:
+        reader=csv.reader(f)
+        next(reader)
+        for row in reader:
+            if len(row)<3:
+                continue
+            if row[0].lower()==name.lower() and row[1]==today:
+                print("Attendance already marked for today!")
+                return
+    with open(FILE, "a",newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow([name, today, status])
+        print("Attendance marked successfully✔")
+def view_attendance():
+    with open(FILE,"r") as f:
+        reader=list(csv.reader(f))
+        if len(reader)<=1:
+            print("No Attendance data found")
+            return
+        print("\n"+"-"*57)
+        print(f"{'name':15}|{'date:12'}|{'status'}")
+        print("-"*57)
+        for row in reader[1:]:
+            print(f"{row[0]:15}|{row[1]:12}|{row[2]}")
+            print("-"*57+"\n")
+def search_employee():
+    name=input("Enter employee name: ").strip()
+    found=False
+    with open(FILE,"r") as f:
+        reader=csv.reader(f)
+        next(reader)
+        for row in reader:
+            if row[0].lower()==name.lower():
+                print(row)
+                found=True
+    if not found:
+        print("Record not found")
+def count_attendance():
+    name=input("Enter name of employee: ")
+    count=0
+    with open(FILE,"r") as f:
+        reader=csv.reader(f)
+        next(reader)
+        for row in reader:
+            if row[0].lower()==name.lower() and row[2]=="Present":
+                count+=1
+                print(f"{name} was present for {count} days")
+while True:
+    print("1.Mark Attendance")
+    print("2. View Attendance")
+    print("3. Search Employee")
+    print("4. Count Attendance")
+    print("5. Exit")
+    choice=input("Enter your choice: ")
+    if choice=="1":
+        mark_attendance()
+    elif choice=="2":
+        view_attendance()
+    elif choice=="3":
+        search_employee()
+    elif choice=="4":
+        count_attendance()
+    elif choice=="5":
+        break
+    else:
+        print("Invalid choice")
