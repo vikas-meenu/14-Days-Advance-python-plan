@@ -1,0 +1,57 @@
+def load_notes():
+    try:
+        with open ("mynotes.txt","r")as f:
+            return f.read().splitlines()
+    except FileNotFoundError:
+        return []
+def save_notes(notes):
+    with open ("mynotes.txt","w") as f:
+        for note in notes:
+            f.write(note+"\n")
+def add_note():
+    n=input("Enter new note: ")
+    notes=load_notes()
+    notes.append(n)
+    save_notes(notes)
+    print("Note added successfully✔")
+def view_notes():
+    notes=load_notes()
+    if not notes:
+        print("No notes added yet!")
+        return
+    print("\n Your Notes")
+    for i,n in enumerate(notes,start=1):
+        print(f"{i}. {n}")
+def search_note():
+    key=input("Enter keyword to search notes: ")
+    notes=load_notes()
+    found=[n for n in notes if key.lower() in n.lower()]
+    if not found:
+        print("❌keyword does not match any notes!")
+    else:
+        for n in found:
+            print(f"\n{n}")
+def delete_note():
+    view_notes()
+    idx=int(input("Enter note number to delete: "))
+    notes=load_notes()
+    if 1<=idx<=len(notes):
+        notes.pop(idx-1)
+        print("Note deleted successfully!")
+    else:
+        print("❌invalid note number")
+while True:
+    print("\n1. Add Note\n2.View Notes\n3.Search Note\n4.Delete Note\n5.Exit")
+    choice=int(input("Enter your choice: "))
+    if choice==1:
+        add_note()
+    elif choice==2:
+        view_notes()
+    elif choice==3:
+        search_note()
+    elif choice==4:
+        delete_note()
+    elif choice==5:
+        break
+    else:
+        print("Invalid choice")
