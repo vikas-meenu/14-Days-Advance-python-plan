@@ -14,9 +14,20 @@ By the end , I will have **14 days projects** in python.
 -[X] Function using kwarg
 -[X] Exception handling
 -[X] Mini project-Calculator
-###✔ Day 2 -Task
+###✔ Day 3 -Task
 -[X] String formatter
 -[X] Count Vowels
 -[X] Reversing words
+-[X] Mini project-Frequency of words calculator
+###✔ Day 4 -Task
+-[X] Write to a file
+-[X] Read from file
+-[X] Append file
+-[X] Json contact saver
+###✔ Day 5 -Task
+-[X] Student Data
+-[X] Bank system update
+-[X] Notepad
+-[X] Mini project-Employee attendance csv file
 -[X] Mini project-Frequency of words calculator
 
