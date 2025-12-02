@@ -1,0 +1,14 @@
+##Task-2 List comprehension problems
+# a. square of a number(1-10)
+square=[x**2 for x in range(1,11)]
+print(square)
+
+#b. Extract even number from list
+numbers=[12,1,15,17,14,18,19,21,22,24,18]
+even_num=[num for num in numbers if num%2==0]
+print(even_num)
+
+# c.Convert list of strings to uppercase
+words=["Starcke","June","system","crore"]
+words_upper=[w.upper() for w in words]
+print(words_upper)
