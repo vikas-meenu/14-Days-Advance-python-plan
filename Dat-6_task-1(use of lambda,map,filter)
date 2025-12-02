@@ -1,0 +1,19 @@
+##Task-1 Lambda,map,filter
+## a.Use lambda and map to square a list of numbers
+numbers=[1,4,6,2,9,8,3,7,10]
+result=list(map(lambda x:x**2,numbers))
+print(result)
+# b. Multiply each number by 3
+nums=[12,4,6,7,2,9,11,5]
+result=list(map(lambda x:x*3,nums))
+print(result)
+
+# c. Filter Even number
+nums=[12,7,8,11,45,23,22,91,62,15,14,68]
+even=(list(filter(lambda x:x%2==0,nums)))
+print(even)
+# d. Sum of list using reduce
+from functools import reduce
+nums=[11,4,5,6,24,37,9,31]
+total=reduce(lambda a,b:a+b,nums)
+print(total)
