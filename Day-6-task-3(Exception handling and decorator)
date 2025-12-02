@@ -1,0 +1,27 @@
+## Task-3 Decorator
+# a.Write a decorator that print start before a function run and end after it runs
+def show_details(func):
+    def wrapper():
+        print("Start")
+        func()
+        print("End")
+    return wrapper
+@show_details
+def greet():
+    print("Hello world")
+greet()
+
+# b. Exception handling
+try:
+    num1 = float(input("Enter first number: "))
+    num2 = float(input("Enter second number: "))
+    result=num1/num2
+    print("result",result)
+except ValueError:
+    print("Please enter only numbers")
+except ZeroDivisionError:
+    print("Can not be divided by 0")
+except Exception as e:
+    print("Unexpected error occured !")
+finally:
+    print("Progress ended safely")
