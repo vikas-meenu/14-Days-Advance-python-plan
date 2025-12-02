@@ -1,0 +1,17 @@
+## Ask user for marks separated by space
+# convert to integer list
+# use map,filter,lambda,list comprehension
+#Find-Highest,Lowest,Average ,Passing students and failed(<40)
+from functools import reduce
+marks=list(map(int,input("Enter marks separated by space:").split()))
+highest=max(marks)
+lowest=min(marks)
+avg=sum(marks)/len(marks)
+passed=list(filter(lambda x:x>=40,marks))
+failed=list(filter(lambda x:x<40,marks))
+print("\n ---Student Report Summary---")
+print("highest",highest)
+print("lowest",lowest)
+print("Average",avg)
+print("Passed students",passed)
+print("Failed students",failed)
