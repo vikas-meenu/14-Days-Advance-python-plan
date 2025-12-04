@@ -1,0 +1,27 @@
+import csv
+def read_csv(filename):
+    students=[]
+    with open(filename,"r") as f:
+        reader=csv.DictReader(f)
+        for row in reader:
+            row["marks"]=int(row["marks"])
+            students.append(row)
+    return students
+def find_high_low(students):
+    highest=max(students,key=lambda x:x["marks"])
+    lowest=min(students,key=lambda x:x["marks"])
+    return highest,lowest
+def calculate_average(students):
+    total=sum(s["marks"] for s in students)
+    return total/len(students)
+def print_details(students):
+    print("\n----Students Report----")
+    for s in students:
+        print(f"{s['name']}-->{s['marks']} marks")
+students=read_csv("students.csv")
+highest,lowest=find_high_low(students)
+average=calculate_average(students)
+print("\n----Analysis Result---")
+print(f"Highest Scorer: {highest['name']} {highest['marks']} marks")
+print(f"Lowest Scorer: {lowest['name']} {lowest['marks']} marks")
+print(f"Average Class : {average:.2f}")
