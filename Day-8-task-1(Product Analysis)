@@ -1,0 +1,36 @@
+##Task-1 CSV report generator(Automation)-products data analysis
+import csv
+FILE="products.csv"
+def save_products():
+    products=[]
+    for i in range(5):
+        print(f"\nEnter details for product {i+1}: ")
+        name=input("Enter Product Name: ")
+        price=float(input("Price: "))
+        qty=int(input("Quantity: "))
+        products.append([name,price,qty])
+    with open(FILE,"w",newline="") as f:
+        writer=csv.writer(f)
+        writer.writerow(["Name","Price","Quantity"])
+        writer.writerows(products)
+        print(f"\nProduct details saved in {FILE}")
+def analyze_products():
+    with open(FILE,"r") as f:
+        reader = csv.DictReader(f)
+        products = list(reader)
+        total_products = len(products)
+        total_value = 0
+        highest = None
+        for p in products:
+            price = float(p["Price"])
+            qty = int(p["Quantity"])
+            total_value += price * qty
+            if highest is None or price > float(highest["Price"]):
+                highest = p
+                print("\n----Product Report------")
+                print(f"Total Products: {total_products}")
+                print(f"Total Valuation: {total_value}")
+                print(f"Most Expensive product:{highest["Name"]} ({highest['Price']})")
+
+save_products()
+analyze_products()
