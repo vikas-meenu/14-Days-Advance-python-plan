@@ -1,0 +1,12 @@
+import shutil
+def backup_file():
+    original=input("Enter file name to backup: ")
+    try:
+        backup_name="backup_"+original
+        shutil.copy(original,backup_name)
+        print("backup created successfully")
+    except FileNotFoundError:
+        print("File not found to backup!")
+    except Exception as e:
+        print("error",e)
+backup_file()
