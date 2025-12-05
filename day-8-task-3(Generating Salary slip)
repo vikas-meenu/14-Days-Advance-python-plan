@@ -1,0 +1,21 @@
+def generate_salary_slip():
+    name=input("Enter employee name: ")
+    salary=float(input("Enter  basic salary amount: "))
+    hra=0.1*salary
+    da=0.2*salary
+    pf=0.12*salary
+    Net_salary=salary+da+hra-pf
+    slip=f"""
+    Employee:{name}
+    Basic salary:{salary}
+    HRA:{hra}
+    DA:{da}
+    PF:{pf}
+    ..........................
+    Net Salary:{Net_salary}
+"""
+    filename=f"{name}_salary_slip.txt"
+    with open(filename,"w") as f:
+        f.write(slip)
+        print(f"Salary slip generated: {filename}")
+generate_salary_slip()
