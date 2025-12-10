@@ -1,0 +1,90 @@
+import json
+import os
+
+class Task:
+    def __init__(self, title, done=False):
+        self.title=title
+        self.done=done
+    def mark_done(self):
+        self.done=True
+    def to_dict(self):
+        return{
+            "title": self.title,
+            "done": self.done
+        }
+    @staticmethod
+    def from_dict(data):
+        return{Task(data["title"], data["done"])}
+
+class TOdoManager:
+    FILE="tasks.json"
+    def __init__(self):
+        self.tasks=[]
+        self.load_tasks()
+    def add_task(self):
+        title=input("Enter task title: ")
+        self.tasks.append(Task(title))
+        print("Task added successfully ✔")
+    def view_tasks(self):
+        if not self.tasks:
+            print("❌No tasks added yet!")
+            return
+        print("\n -------Your Tasks------")
+        for i,task in enumerate(self.tasks,start=1):
+            status="✔ Done" if task.done else "❌Pending"
+            print(f"{i}.{task.title}---{status}")
+    def mark_tasks_done(self):
+        self.view_tasks()
+        if not self.tasks:
+            print("❌No tasks added Yet! ")
+            return
+        index=int(input("Enter task number to be mark done: "))-1
+        if 0<=index<=len(self.tasks):
+            self.tasks[index].mark_done()
+            print("Task marked as done ✔")
+        else:
+            print("❌ Invalid task number!")
+    def delete_tasks(self):
+        self.view_tasks()
+        if not self.tasks:
+            print("No tasks available !")
+            return
+        index=int(input("Enter task number you want to delete: "))-1
+        if 0<=index<=len(self.tasks):
+            deleted= self.tasks.pop(index)
+            print(f"Task {deleted.title} Deleted ✔")
+    def save_tasks(self):
+        data=[task.to_dict() for task in self.tasks]
+        with open(self.FILE,"w") as f:
+            json.dump(data,f,indent=4)
+            print("Tasks saved to file To-do.Json")
+    def load_tasks(self):
+        if not os.path.exists(self.FILE):
+            return
+        with open(self.FILE, "r") as f:
+            data = json.load(f)
+        self.tasks = [Task.from_dict(t) for t in data]
+        print("Tasks loaded successfully")
+todo=TOdoManager()
+while True:
+    print("\n-----Todo App------")
+    print("1. Add task")
+    print("2. View tasks")
+    print("3. Mark tasks done")
+    print("4. Delete task")
+    print("5. Save tasks and exit")
+    ch= input("Enter your choice: ")
+    if ch=="1":
+        todo.add_task()
+    elif ch=="2":
+        todo.view_tasks()
+    elif ch=="3":
+        todo.mark_tasks_done()
+    elif ch=="4":
+        todo.delete_tasks()
+    elif ch=="5":
+        todo.save_tasks()
+        print("Tasks saved ✔ and exiting app")
+        break
+    else:
+        print("❌Invalid choice ")
