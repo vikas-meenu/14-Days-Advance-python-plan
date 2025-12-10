@@ -1,0 +1,87 @@
+import os
+class Employee:
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+
+    def calculate_hra(self):
+        return 0.2*self.salary
+    def calculate_da(self):
+        return 0.1*self.salary
+    def calculate_pf(self):
+        return 0.12*self.salary
+    def generate_slip(self):
+        hra=self.calculate_hra()
+        da=self.calculate_da()
+        pf=self.calculate_pf()
+        net_salary=self.salary+hra+da-pf
+        slip=(
+            f"--------------------------------------------------------------\n"
+                             f"          SALARY SLIP\n"
+                             f"Basic Salary: {self.salary}\n"
+                             f"HRA: {hra}\n"
+                             f"DA: {da}\n"
+                             f"PF: {pf}\n"
+            f"-----------------------------------------------------------------\n"
+                             f"Net Salary: {net_salary}\n"
+            f"------------------------------------------------------------------\n"
+
+        )
+        return slip
+    def save_slip_to_file(self):
+        filename=f"{self.name}_Salary_slip.txt"
+        with open (filename,"w") as f:
+            f.write(self.generate_slip())
+            print(f"Slip saved to file {filename}")
+class HrSystem:
+    def __init__(self):
+        self.employees=[]
+    def add_employee(self):
+        name=input("Enter employee name: ")
+        salary=float(input("Enter employee salary: "))
+        emp=Employee(name,salary)
+        self.employees.append(emp)
+        print("Employee added successfully ✔")
+    def view_employee(self):
+        if not self.employees:
+            print("No employee found!")
+            return
+        print("\n-----Employees list-------")
+        for emp in self.employees:
+            print(f"{emp.name}----->Salary:{emp.salary}")
+    def generate_salary_slip(self):
+        name=input("Enter employee name: ")
+        for emp in self.employees:
+            if emp.name==name:
+                slip=emp.generate_slip()
+                print("\n"+slip)
+                emp.save_slip_to_file()
+                return
+            print("No Employee found!")
+
+    def save_all_slip(self):
+        if not self.employees:
+            print("❌ No Employee found !")
+            return
+        for emp in self.employees:
+            emp.save_slip_to_file()
+            print("All salary slip saved ✔")
+hr=HrSystem()
+while True:
+    print("\n HR System")
+    print("1.Add Employee")
+    print("2.View Employee")
+    print("3.Generate Salary Slip")
+    print("4.Save to file and exit")
+    choice=input("Enter your choice: ")
+    if choice=="1":
+        hr.add_employee()
+    elif choice=="2":
+        hr.view_employee()
+    elif choice=="3":
+        hr.generate_salary_slip()
+    elif choice=="4":
+        print("Exiting....")
+        break
+    else:
+        print("❌Invalid choice")
