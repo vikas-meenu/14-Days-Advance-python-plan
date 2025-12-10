@@ -1,0 +1,100 @@
+import json
+import os
+class BankAccount:
+    def __init__(self,name,balance=0):
+        self.name=name
+        self.balance=balance
+
+    def deposit(self, amount):
+        if amount <= 0:
+            print("❌Negative  value of amount!")
+            return
+        self.balance += amount
+        print(f"{amount} deposited and the current balance is {self.balance}")
+
+    def withdraw(self, amount):
+        if amount <= 0:
+            print("❌Negative  value of amount!")
+            return
+        if amount > self.balance:
+            print("Insufficient fund in your account!")
+            return
+        self.balance -= amount
+        print(f"{amount} withdrawn and the current balance is {self.balance}")
+
+    def check_balance(self):
+        print(f"Balance for the account {self.name}:{self.balance}")
+class BankSystem:
+    FILE="BankAccount.json"
+    def __init__(self):
+        self.accounts=self.load_accounts()
+    def create_accounts(self):
+        name=input("Enter name of new account: ")
+        if name in self.accounts:
+            print("❌Account of this name already exists!")
+            return
+        self.accounts[name]=BankAccount(name)
+        print("✔Account created successfully!")
+    def login(self,name):
+        if name in self.accounts:
+            print(f"Log in successfull✔! Welcome {name}")
+            return self.accounts[name]
+        else:
+            print("No such account found!")
+    def save_accounts(self):
+        data={name:acc.balance for name, acc in self.accounts.items()}
+        with open(self.FILE,"w") as f:
+            json.dump(data,f,indent=4)
+            print("All accounts saved!")
+    def load_accounts(self):
+        if not os.path.exists(self.FILE):
+            return{}
+        with open(self.FILE,"r") as f:
+            data=json.load(f)
+        accounts={}
+        for name, balance in data.items():
+            accounts[name] = BankAccount(name, balance)
+            print("Accounts successfully loaded")
+        return accounts
+    def user_menu(self,account:BankAccount):
+        while True:
+            print("\n-----Account Menu-----\n")
+            print("1. Deposit")
+            print("2. Withdraw")
+            print("3. Check balance")
+            print("4.Logout")
+            choice=input("Enter your choice: ")
+            if choice=="1":
+                amount=float(input("Enter  amount: "))
+                account.deposit(amount)
+            elif choice=="2":
+                amount=float(input("Enter  amount: "))
+                account.withdraw(amount)
+            elif choice=="3":
+                account.check_balance()
+            elif choice=="4":
+                print("Logged out!")
+                self.save_accounts()
+                break
+            else:
+                print("invalid choice try again!")
+bank = BankSystem()
+while True:
+    print("\n -----Bank System------")
+    print("1.Create Account")
+    print("2.Log In")
+    print("3.Exit")
+    choice = input("Enter your choice: ")
+    if choice == "1":
+        bank.create_accounts()
+    elif choice == "2":
+        name=input("Enter name: ")
+        acc = bank.login(name)
+        if acc:
+            bank.user_menu(acc)
+    elif choice == "3":
+        bank.save_accounts()
+        print("exiting the system")
+        break
+    else:
+        print("Invalid choice!")
