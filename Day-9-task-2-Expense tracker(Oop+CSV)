@@ -1,0 +1,66 @@
+import csv
+import os
+class Expense:
+    def __init__(self, title, amount, category):
+        self.title=title
+        self.amount=amount
+        self.category=category
+class ExpenseTracker:
+    FILE="Expense_tracker.csv"
+    def __init__(self):
+        self.expenses = []
+        self.load_from_csv()
+    def add_expense(self):
+        title=input("Enter expense title: ")
+        amount=float(input("Enter expense amount: "))
+        category=input("Enter expense category: ")
+        expense=Expense(title, amount, category)
+        self.expenses.append(expense)
+        print("Expense added successfully ✔")
+    def view_expense(self):
+        if not self.expenses:
+            print("❌No expense added yet!")
+            return
+        print("\n----Expense List----")
+        for e in self.expenses:
+            print(f"Title:{e.title},Amount:{e.amount},Category:{e.category}")
+    def total_expense(self):
+        total=sum(e.amount for e in self.expenses)
+        print(f"Total spent is {total}")
+    def save_to_csv(self):
+        with open(self.FILE,"w") as f:
+            writer=csv.writer(f)
+            writer.writerow(["Title","Amount","Category"])
+            for e in self.expenses:
+                writer.writerow([e.title,e.amount,e.category])
+                print("Expenses saved to csv file ✔")
+    def load_from_csv(self):
+        if not os.path.exists(self.FILE):
+            return
+        with open(self.FILE,"r")as f:
+            reader=csv.DictReader(f)
+            for row in reader:
+                expense=Expense(row["title"],row["amount"],row["category"])
+                self.expenses.append(expense)
+                print("Previous Expenses loaded successfully ✔")
+tracker=ExpenseTracker()
+while True:
+    print("1.Add expense")
+    print("2.View expense")
+    print("3.Total Spent")
+    print("4.Save to csv")
+    print("5.Exit")
+    choice=input("Enter your choice: ")
+    if choice=="1":
+        tracker.add_expense()
+    elif choice=="2":
+        tracker.view_expense()
+    elif choice=="3":
+        tracker.total_expense()
+    elif choice=="4":
+        tracker.save_to_csv()
+    elif choice=="5":
+        print("Exiting....")
+        break
+    else:
+        print("Invalid choice")
