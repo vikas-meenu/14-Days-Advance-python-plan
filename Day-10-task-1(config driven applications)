@@ -1,0 +1,17 @@
+import json
+import os
+class Config:
+    def __init__(self,filename="config.json"):
+        if not os.path.exists(filename):
+            raise FileNotFoundError("❌Config file not found")
+        with open(filename,"r") as f:
+            self.data = json.load(f)
+        self.validate()
+    def validate(self):
+        required_keys = ["app_name","version","data_directory","log_file"]
+        for key in required_keys:
+            if key not in self.data:
+                raise ValueError(f"❌Missing config key:{key}")
+    def get(self,key):
+        return self.data.get(key)
+    
