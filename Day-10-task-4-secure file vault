@@ -1,0 +1,22 @@
+import os
+class Vault:
+    BASE_DIR = "vault"
+    def __init__(self,user_name):
+        self.user_name=user_name
+        self.user_dir=os.path.join(self.BASE_DIR,self.user_name)
+        os.makedirs(self.user_dir,exist_ok=True)
+    def save_files(self,filename,content):
+        path=os.path.join(self.user_dir,filename)
+        with open(path,"w") as f:
+            f.write(content)
+            print("File Saved!")
+    def list_file(self):
+        return os.listdir(self.user_dir)
+    def read_file(self,filename):
+        path=os.path.join(self.user_dir,filename)
+        with open(path,"r") as f:
+            return f.read()
+    def delete_file(self,filename):
+        path=os.path.join(self.user_dir,filename)
+        os.remove(path)
+        print("File Deleted Successfully!")
