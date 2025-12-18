@@ -1,0 +1,13 @@
+import os
+import importlib
+BASE_DIR=os.path.dirname(__file__)
+PLUGINS_DIR=os.path.join(BASE_DIR, "plugins")
+def load_plugins():
+    if not os.path.exists(PLUGINS_DIR):
+        raise FileNotFoundError(f"Plugin directory not found {PLUGINS_DIR}")
+    for file in os.listdir(PLUGINS_DIR):
+        if file.endswith(".py") and file!="__init__.py":
+            module_name=f"plugins {file[:-3]}"
+            module=importlib.import_module(module_name)
+            module.run()
+load_plugins()
